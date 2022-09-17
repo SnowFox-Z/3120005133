@@ -1,10 +1,11 @@
+import os
 import re
 import jieba
 import gensim
 
 
 # 读取文件内容
-def getpath(path):
+def getpath(path: object) -> object:
     """
     :param path:
     :return:
@@ -19,8 +20,8 @@ def getpath(path):
     return symbol
 
 
-# jieba分词，过滤标点
-def filterpunctuation(fil):
+# jieba分词处理，过滤标点
+def filtration(fil):
     """
     :param fil:
     :return:
@@ -38,28 +39,53 @@ def filterpunctuation(fil):
 # 计算余弦相似度
 def cosinesimilarity(textone, texttwo):
     """
-    :param textone: 
+    :param textone:
     :param texttwo:
-    :return: 
+    :return:
     """
     text = [textone, texttwo]
     word = gensim.corpora.Dictionary(text)
-    warehouse = [word.doc2bow(text) for text in text]
-    same = gensim.similarities.Similarity('-Similarity-index', warehouse, num_features=len(word))
-    testwarehouse = word.doc2bow(textone)
-    cosinesim = same[testwarehouse][1]
-    return cosinesim
+    pattern = [word.doc2bow(text) for text in text]
+    testpattern = word.doc2bow(textone)
+    cosine = gensim.similarities.Similarity('-Similarity-index', pattern, num_features=len(word))
+    coefficient = cosine[testpattern][1]
+    return coefficient
 
 
+# 实现命令行输入文件路径，文件路径以空格隔开
 if __name__ == '__main__':
     print('依次输入论文原文文件、抄袭版论文文件、输出的答案文件的绝对路径,参数之间使用空格隔开')
     path1, path2, finalpath = map(str, input().split())
+    if not os.path.exists(path1):
+        print("论文原文文件不存在！")
+        exit()
+    if not os.path.exists(path2):
+        print("抄袭版论文文件不存在！")
+        exit()
     str1 = getpath(path1)
     str2 = getpath(path2)
-    text1 = filterpunctuation(str1)
-    text2 = filterpunctuation(str2)
+    text1 = filtration(str1)
+    text2 = filtration(str2)
     similarity = cosinesimilarity(text1, text2)
     print("两篇论文的相似度： %.4f" % similarity)  # 将相似度结果写入指定文件
     fopen2 = open(finalpath, 'w', encoding="utf-8")  # 编码方式使用UTF-8
     fopen2.write("两篇论文的相似度： %.4f" % similarity)
     fopen2.close()
+
+# # 单元测试代码
+# if __name__ == '__main__':
+#     i = {"./test1/text-add1.txt",
+#          "./test1/text-add2.txt",
+#          "./test1/text-add3.txt",
+#          "./test1/text-add4.txt",
+#          "./test1/text-add5.txt"}
+#     path1 = './test1/text.txt'
+#     for x in i:
+#         path2 = x
+#         str1 = getpath(path1)
+#         str2 = getpath(path2)
+#         text1 = filtration(str1)
+#         text2 = filtration(str2)
+#         similarity = cosinesimilarity(text1, text2)
+#         print("论文原文text.txt与抄袭版论文", end=x)
+#         print("的相似度： %.4f" % similarity)
