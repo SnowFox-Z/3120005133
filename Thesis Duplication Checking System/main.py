@@ -52,9 +52,13 @@ def cosinesimilarity(textone, texttwo):
 
 
 if __name__ == '__main__':
-    path1 = ".\\paper.txt"  # 论文原文的文件的绝对路径
-    path2 = ".\\paper-add.txt"  # 抄袭版论文的文件的绝对路径
-    finalpath = ".\\save.txt"  # 输出的答案文件的绝对路径
+    print('依次输入论文原文文件、抄袭版论文文件、输出的答案文件的绝对路径')
+    path1 = input()
+    path2 = input()
+    finalpath = input()
+    # path1 = ".\paper.txt"  # 论文原文的文件的绝对路径
+    # path2 = ".\paper-add.txt"  # 抄袭版论文的文件的绝对路径
+    # finalpath = ".\save.txt"  # 输出的答案文件的绝对路径
     str1 = getpath(path1)
     str2 = getpath(path2)
     text1 = filterpunctuation(str1)
