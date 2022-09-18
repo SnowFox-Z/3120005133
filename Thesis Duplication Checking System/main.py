@@ -52,40 +52,40 @@ def cosinesimilarity(textone, texttwo):
     return coefficient
 
 
-# 实现命令行输入文件路径，文件路径以空格隔开
-if __name__ == '__main__':
-    print('依次输入论文原文文件、抄袭版论文文件、输出的答案文件的绝对路径,参数之间使用空格隔开')
-    path1, path2, finalpath = map(str, input().split())
-    if not os.path.exists(path1):
-        print("论文原文文件不存在！")
-        exit()
-    if not os.path.exists(path2):
-        print("抄袭版论文文件不存在！")
-        exit()
-    str1 = getpath(path1)
-    str2 = getpath(path2)
-    text1 = filtration(str1)
-    text2 = filtration(str2)
-    similarity = cosinesimilarity(text1, text2)
-    print("两篇论文的相似度： %.4f" % similarity)  # 将相似度结果写入指定文件
-    fopen2 = open(finalpath, 'w', encoding="utf-8")  # 编码方式使用UTF-8
-    fopen2.write("两篇论文的相似度： %.4f" % similarity)
-    fopen2.close()
-
-# # 单元测试代码
+# # 实现命令行输入文件路径，文件路径以空格隔开
 # if __name__ == '__main__':
-#     i = {"./test1/text-add1.txt",
-#          "./test1/text-add2.txt",
-#          "./test1/text-add3.txt",
-#          "./test1/text-add4.txt",
-#          "./test1/text-add5.txt"}
-#     path1 = './test1/text.txt'
-#     for x in i:
-#         path2 = x
-#         str1 = getpath(path1)
-#         str2 = getpath(path2)
-#         text1 = filtration(str1)
-#         text2 = filtration(str2)
-#         similarity = cosinesimilarity(text1, text2)
-#         print("论文原文text.txt与抄袭版论文", end=x)
-#         print("的相似度： %.4f" % similarity)
+#     print('依次输入论文原文文件、抄袭版论文文件、输出的答案文件的绝对路径,参数之间使用空格隔开')
+#     path1, path2, finalpath = map(str, input().split())
+#     if not os.path.exists(path1):
+#         print("论文原文文件不存在！")
+#         exit()
+#     if not os.path.exists(path2):
+#         print("抄袭版论文文件不存在！")
+#         exit()
+#     str1 = getpath(path1)
+#     str2 = getpath(path2)
+#     text1 = filtration(str1)
+#     text2 = filtration(str2)
+#     similarity = cosinesimilarity(text1, text2)
+#     print("两篇论文的相似度： %.4f" % similarity)  # 将相似度结果写入指定文件
+#     fopen2 = open(finalpath, 'w', encoding="utf-8")  # 编码方式使用UTF-8
+#     fopen2.write("两篇论文的相似度： %.4f" % similarity)
+#     fopen2.close()
+
+# 单元测试代码
+if __name__ == '__main__':
+    i = {"./test1/text-add1.txt",
+         "./test1/text-add2.txt",
+         "./test1/text-add3.txt",
+         "./test1/text-add4.txt",
+         "./test1/text-add5.txt"}
+    path1 = './test1/text.txt'
+    for x in i:
+        path2 = x
+        str1 = getpath(path1)
+        str2 = getpath(path2)
+        text1 = filtration(str1)
+        text2 = filtration(str2)
+        similarity = cosinesimilarity(text1, text2)
+        print("论文原文text.txt与抄袭版论文", end=x)
+        print("的相似度： %.4f" % similarity)
